@@ -1,0 +1,60 @@
+----Create Empty Tables
+USE TestData
+GO
+
+--CSV1
+CREATE TABLE CSV1
+-- INSERT TABLE SCHEMA
+GO
+
+--CSV2
+CREATE TABLE CSV2
+-- INSERT TABLE SCHEMA
+GO
+
+
+----Populate Tables
+--CSV1
+BULK
+INSERT CSV1
+FROM '1.csv'
+WITH
+(
+FIELDTERMINATOR = ',',
+ROWTERMINATOR = '\n'
+)
+GO
+
+--CSV2
+BULK
+INSERT CSV2
+FROM '2.csv'
+WITH
+(
+FIELDTERMINATOR = ',',
+ROWTERMINATOR = '\n'
+)
+GO
+
+--Check the contents
+--CSV1
+SELECT *
+FROM CSV1
+GO
+
+--CSV2
+SELECT *
+FROM CSV2
+GO
+
+
+
+
+---- Clean Database
+--CSV1
+DROP TABLE CSV1
+GO
+
+--CSV2
+DROP TABLE CSV2
+GO
