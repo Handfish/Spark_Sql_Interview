@@ -1,5 +1,6 @@
 ## SQL Interview Application
 To run `./createDbAndTables.sh 1.csv 2.csv`
+
 To clean `./dropScriptDatabase.sh`
 
 https://stackoverflow.com/questions/9998596/create-mysql-table-directly-from-csv-file-using-the-csv-storage-engine
