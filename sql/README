@@ -7,4 +7,4 @@ Seeing as it is not possible to create a table schema from a csv directly, I mad
 
 Wasn't sure what database we were working in but I completed this with MYSQL
 
-MYSQL is weak. It lacks functionality such as INTERSECT and MINUS, which would have made this much easier.
+MYSQL is not as powerful as other sql languages. It lacks functionality such as INTERSECT and MINUS, which would have made this much easier.
