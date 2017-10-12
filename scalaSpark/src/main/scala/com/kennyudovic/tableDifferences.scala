@@ -110,38 +110,38 @@ object tableDifferencesSQL {
     df1.cache()
     df2.cache()
 
-    //import org.apache.spark.sql.functions._
+    import org.apache.spark.sql.functions._
     import spark.implicits._
 
     df1.createOrReplaceTempView("tableOne")
     df2.createOrReplaceTempView("tableTwo")
 
     val columnNames = df1.schema.fields.map(_.name)
-    println("No Change Rows ")
+    //println("No Change Rows ")
     val noChange = spark.sql("SELECT * FROM tableOne INTERSECT SELECT * FROM tableTwo")
-    noChange.show()
+    //noChange.show()
 
-    println("Deleted Rows")
+    //println("Deleted Rows")
     val deleted = spark.sql("SELECT * FROM tableOne WHERE " + columnNames(0) + " NOT IN (SELECT " + columnNames(0) + " FROM tableTwo)") //.orderBy(asc(columnNames(0)))
-    deleted.show()
+    //deleted.show()
     
-    println("Added Rows")
+    //println("Added Rows")
     val added = spark.sql("SELECT * FROM tableTwo WHERE " + columnNames(0) + " NOT IN (SELECT " + columnNames(0) + " FROM tableOne)") //.orderBy(asc(columnNames(0)))
-    added.show()
+    //added.show()
 
-    println("Updated Rows")
+    //println("Updated Rows")
     val updated = spark.sql("SELECT * FROM tableTwo WHERE EXISTS (SELECT 1 FROM tableOne WHERE tableTwo." + columnNames(0) + " = tableOne." + columnNames(0)  + ") EXCEPT (SELECT * FROM tableOne)")
-    updated.show()
+    //updated.show()
 
-    //val noChangeFlagged = noChange.withColumn("flag", lit("No Change"))
-    //val deletedFlagged = deleted.withColumn("flag", lit("Deleted"))
-    //val addedFlagged = added.withColumn("flag", lit("Added"))
-    //val updatedFlagged = updated.withColumn("flag", lit("Updated"))
+    val noChangeFlagged = noChange.withColumn("flag", lit("No Change"))
+    val deletedFlagged = deleted.withColumn("flag", lit("Deleted"))
+    val addedFlagged = added.withColumn("flag", lit("Added"))
+    val updatedFlagged = updated.withColumn("flag", lit("Updated"))
 
-    //val finalResult = updatedFlagged.union(addedFlagged.union(deletedFlagged.union(noChangeFlagged))).orderBy(asc(columnNames(0)))
+    val finalResult = updatedFlagged.union(addedFlagged.union(deletedFlagged.union(noChangeFlagged))).orderBy(asc(columnNames(0)))
 
-    //val results = finalResult.collect()
-    //results.foreach(println)
+    val results = finalResult.collect()
+    results.foreach(println)
 
     //results.saveAsTextFile("output/final.csv")
   }
