@@ -1,0 +1,4 @@
+I checked my results by running my program on the two datasets provided.
+Using the shell, I manually ran each query and visually confirmed my success.
+
+The better method would be to write unit tests.

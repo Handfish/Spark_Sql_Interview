@@ -1,0 +1,4 @@
+I checked my results by running my program on the two datasets provided.
+Using the .show() command at each step of the process, and visually confirmed my success.
+
+The better method would be to write unit tests.
