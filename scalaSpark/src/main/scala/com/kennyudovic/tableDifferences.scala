@@ -5,8 +5,8 @@ import org.apache.spark.SparkContext._
 import org.apache.spark.sql._
 import org.apache.log4j._
 
+//Completing the task without SQL
 object tableDifferences {
-
   def main(args: Array[String]) {
     // Set the Logger Level for reports
     Logger.getLogger("org").setLevel(Level.ERROR)
@@ -38,8 +38,8 @@ object tableDifferences {
     df2.cache()
 
     // For debugging purposes
-    df1.show()
-    df2.show()
+    //df1.show()
+    //df2.show()
 
     //import spark.implicits._
     import org.apache.spark.sql.functions._
@@ -76,6 +76,8 @@ object tableDifferences {
 }
 
 
+
+// Object to display SQL queries in Spark
 object tableDifferencesSQL {
 
   def main(args: Array[String]) {
@@ -130,6 +132,11 @@ object tableDifferencesSQL {
     println("Updated Rows")
     val updated = spark.sql("SELECT * FROM tableTwo WHERE EXISTS (SELECT 1 FROM tableOne WHERE tableTwo." + columnNames(0) + " = tableOne." + columnNames(0)  + ") EXCEPT (SELECT * FROM tableOne)")
     updated.show()
+
+    //val noChangeFlagged = noChange.withColumn("flag", lit("No Change"))
+    //val deletedFlagged = deleted.withColumn("flag", lit("Deleted"))
+    //val addedFlagged = added.withColumn("flag", lit("Added"))
+    //val updatedFlagged = updated.withColumn("flag", lit("Updated"))
 
     //val finalResult = updatedFlagged.union(addedFlagged.union(deletedFlagged.union(noChangeFlagged))).orderBy(asc(columnNames(0)))
 
